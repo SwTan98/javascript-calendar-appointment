@@ -1,9 +1,7 @@
 <script setup>
-import TheWelcome from "../components/TheWelcome.vue";
+import AppointmentList from "../components/AppointmentList.vue";
 </script>
 
 <template>
-  <main>
-    <TheWelcome />
-  </main>
+  <AppointmentList />
 </template>
