@@ -118,19 +118,19 @@ a.button {
   align-items: center;
   justify-content: center;
   gap: var(--gap);
-  height: var(--button-dimension);
+  padding: 8px 16px;
   background: none;
   border: none;
   border-radius: var(--border-radius);
   background-color: var(--primary);
   color: white;
-  font-size: 24px;
+  font-size: 16px;
   cursor: pointer;
 }
 
 .button-description {
   display: none;
-  font-size: 18px;
+  font-size: 16px;
   font-weight: 500;
 }
 

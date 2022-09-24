@@ -18,7 +18,8 @@ a.white {
 }
 
 @media (hover: hover) {
-  a:hover {
+  a:hover,
+  button:hover {
     opacity: 0.7;
   }
 }

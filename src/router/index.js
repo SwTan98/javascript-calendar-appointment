@@ -11,6 +11,11 @@ const router = createRouter({
       name: "Home",
       component: HomeView,
     },
+    {
+      path: "/new",
+      name: "New Appointment",
+      component: () => import("../views/NewAppointmentView.vue"),
+    },
   ],
 });
 
