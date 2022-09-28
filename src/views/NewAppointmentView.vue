@@ -1,68 +1,36 @@
 <script setup>
 import { ref } from "vue";
+import AppointmentForm from "../components/AppointmentForm.vue";
 
-const appointment = ref({});
-const dentists = ["", "Dentist 1", "Dentist 2", "Dentist 3"];
-const equipments = [
-  "",
-  "Compressor",
-  "Suction Machine",
-  "Scanner",
-  "Hygiene Equipment",
-];
+const appointment = ref({
+  date: "",
+  dentist: "",
+  equipment: "",
+  notes: "",
+});
 const handleSubmit = (e) => {
   console.log(appointment.value);
   e.preventDefault();
 };
 
 const reset = () => {
-  appointment.value = {};
+  appointment.value = {
+    date: "",
+    dentist: "",
+    equipment: "",
+    notes: "",
+  };
 };
 </script>
 
 <template>
   <form @submit="handleSubmit">
-    <div class="input-group">
-      <label for="input-date">Date / Time</label>
-      <input
-        id="input-date"
-        type="datetime-local"
-        v-model="appointment.date"
-        step="60"
-      />
-    </div>
-    <div class="input-group">
-      <label for="input-dentist">Dentist</label>
-      <select id="input-dentist" v-model="appointment.dentist">
-        <option
-          v-for="dentist in dentists"
-          :key="dentist"
-          v-bind:value="dentist"
-        >
-          {{ dentist }}
-        </option>
-      </select>
-    </div>
-    <div class="input-group">
-      <label for="input-equipment">Equipment</label>
-      <select id="input-equipment" v-model="appointment.equipment">
-        <option
-          v-for="equipment in equipments"
-          :key="equipment"
-          v-bind:value="equipment"
-        >
-          {{ equipment }}
-        </option>
-      </select>
-    </div>
-    <div class="input-group">
-      <label for="input-notes">Notes</label>
-      <textarea
-        id="input-notes"
-        rows="5"
-        v-model="appointment.notes"
-      ></textarea>
-    </div>
+    <AppointmentForm
+      v-model:date="appointment.date"
+      v-model:dentist="appointment.dentist"
+      v-model:equipment="appointment.equipment"
+      v-model:notes="appointment.notes"
+    />
     <div class="button-group">
       <button class="reset" type="button" @click="reset">Reset</button>
       <button type="submit">Create Appointment</button>
