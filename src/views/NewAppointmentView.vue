@@ -1,6 +1,7 @@
 <script setup>
 import { ref } from "vue";
 import AppointmentForm from "../components/AppointmentForm.vue";
+import CustomButton from "../components/common/CustomButton.vue";
 
 const appointment = ref({
   date: "",
@@ -32,8 +33,8 @@ const reset = () => {
       v-model:notes="appointment.notes"
     />
     <div class="button-group">
-      <button class="reset" type="button" @click="reset">Reset</button>
-      <button type="submit">Create Appointment</button>
+      <CustomButton label="Reset" variant="secondary" @click="reset" />
+      <CustomButton label="Create Appointment" type="submit" />
     </div>
   </form>
 </template>
@@ -45,45 +46,9 @@ form {
   gap: var(--gap);
 }
 
-.input-group {
-  flex-direction: column;
-  display: flex;
-}
-
-.input-group > * {
-  border-radius: var(--border-radius);
-}
-
-.input-group input,
-.input-group select,
-.input-group textarea {
-  border: 1px solid var(--color-text);
-  padding: 4px;
-}
-
-textarea {
-  resize: vertical;
-}
-
 .button-group {
   display: flex;
   justify-content: space-between;
   gap: var(--gap);
-}
-
-button {
-  color: white;
-  border: none;
-  background-color: var(--primary);
-  font-size: 16px;
-  font-weight: 500;
-  border-radius: var(--border-radius);
-  padding: 8px 16px;
-  cursor: pointer;
-  width: 50%;
-}
-
-button.reset {
-  background-color: gray;
 }
 </style>

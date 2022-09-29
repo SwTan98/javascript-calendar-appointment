@@ -1,5 +1,5 @@
 <script setup>
-import BaseInput from "./common/BaseInput.vue";
+import CustomInput from "./common/CustomInput.vue";
 const dentists = ["", "Dentist 1", "Dentist 2", "Dentist 3"];
 const equipments = [
   "",
@@ -44,7 +44,7 @@ const handleInput = (e) => {
 </script>
 
 <template>
-  <BaseInput
+  <CustomInput
     label="Date / Time"
     id="input-date"
     type="datetime-local"
@@ -53,7 +53,7 @@ const handleInput = (e) => {
     step="60"
     :disabled="readOnly"
   />
-  <BaseInput
+  <CustomInput
     label="Dentist"
     id="input-dentist"
     type="select"
@@ -62,7 +62,7 @@ const handleInput = (e) => {
     @input="handleInput"
     :disabled="readOnly"
   />
-  <BaseInput
+  <CustomInput
     label="Equipment"
     id="input-equipment"
     type="select"
@@ -71,7 +71,7 @@ const handleInput = (e) => {
     @input="handleInput"
     :disabled="readOnly"
   />
-  <BaseInput
+  <CustomInput
     label="Notes"
     id="input-notes"
     type="textarea"

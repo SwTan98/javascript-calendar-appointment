@@ -60,3 +60,25 @@ const handleUpdate = (e) => emit("update:modelValue", e.target.value);
     />
   </div>
 </template>
+
+<style scoped>
+.input-group {
+  flex-direction: column;
+  display: flex;
+}
+
+.input-group > * {
+  border-radius: var(--border-radius);
+}
+
+.input-group input,
+.input-group select,
+.input-group textarea {
+  border: 1px solid var(--color-text);
+  padding: 4px;
+}
+
+textarea {
+  resize: vertical;
+}
+</style>
