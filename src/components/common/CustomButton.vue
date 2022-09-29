@@ -39,6 +39,14 @@ button.primary {
 }
 
 button.secondary {
-  background-color: gray;
+  background-color: var(--secondary);
+}
+
+button.tertiary {
+  background-color: var(--tertiary);
+}
+
+button.danger {
+  background-color: var(--danger);
 }
 </style>

@@ -1,5 +1,6 @@
 import { createRouter, createWebHistory } from "vue-router";
 import HomeView from "../views/HomeView.vue";
+import AppointmentFormView from "../views/AppointmentFormView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 
 const router = createRouter({
@@ -14,7 +15,19 @@ const router = createRouter({
     {
       path: "/new",
       name: "New Appointment",
-      component: () => import("../views/NewAppointmentView.vue"),
+      component: AppointmentFormView,
+    },
+    {
+      path: "/appointment/:id",
+      name: "Detail Appointment",
+      component: AppointmentFormView,
+      props: { mode: "read" },
+    },
+    {
+      path: "/appointment/:id/edit",
+      name: "Edit Appointment",
+      component: AppointmentFormView,
+      props: { mode: "edit" },
     },
   ],
 });

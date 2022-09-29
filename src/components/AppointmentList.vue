@@ -96,7 +96,7 @@ onBeforeMount(() => sort(sorter.value));
           :id="appointment.id"
         >
           <td>
-            <RouterLink :to="appointment.id">{{
+            <RouterLink :to="`/appointment/${appointment.id}`">{{
               appointment.dentist
             }}</RouterLink>
           </td>

@@ -25,10 +25,6 @@ defineProps({
     type: String,
     default: "",
   },
-  readOnly: {
-    type: Boolean,
-    default: false,
-  },
 });
 const emit = defineEmits([
   "update:date",
@@ -51,7 +47,7 @@ const handleInput = (e) => {
     :value="date"
     @input="handleInput"
     step="60"
-    :disabled="readOnly"
+    v-bind="$attrs"
   />
   <CustomInput
     label="Dentist"
@@ -60,7 +56,7 @@ const handleInput = (e) => {
     :options="dentists"
     :value="dentist"
     @input="handleInput"
-    :disabled="readOnly"
+    v-bind="$attrs"
   />
   <CustomInput
     label="Equipment"
@@ -69,7 +65,7 @@ const handleInput = (e) => {
     :options="equipments"
     :value="equipment"
     @input="handleInput"
-    :disabled="readOnly"
+    v-bind="$attrs"
   />
   <CustomInput
     label="Notes"
@@ -78,6 +74,6 @@ const handleInput = (e) => {
     :value="notes"
     @input="handleInput"
     rows="5"
-    :disabled="readOnly"
+    v-bind="$attrs"
   />
 </template>
