@@ -1,5 +1,14 @@
 <script setup>
-import { RouterLink, RouterView } from "vue-router";
+import { RouterLink, RouterView, useRouter } from "vue-router";
+import { useUserStore } from "./components/utils/useUserStore";
+
+const user = useUserStore();
+const router = useRouter();
+
+const handleLogout = () => {
+  user.handleLogout();
+  router.replace("/login");
+};
 </script>
 
 <template>
@@ -8,9 +17,9 @@ import { RouterLink, RouterView } from "vue-router";
       <RouterLink class="white" to="/"
         ><span class="material-icons">home</span></RouterLink
       >
-      <RouterLink class="white" to="">
+      <a class="white" href="" @click.prevent="handleLogout">
         <span class="material-icons"> account_circle </span>
-      </RouterLink>
+      </a>
     </nav>
   </header>
 
