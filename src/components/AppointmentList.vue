@@ -94,7 +94,7 @@ onMounted(() => {
             appointment.dentist
           }}</RouterLink>
         </td>
-        <td>{{ appointment.date }}</td>
+        <td>{{ dayjs(appointment.date).format("DD/MM/YYYY hh:mmA") }}</td>
       </tr>
     </tbody>
   </table>
@@ -104,7 +104,7 @@ onMounted(() => {
 table {
   text-align: left;
   border-collapse: collapse;
-  min-width: 300px;
+  min-width: 250px;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
 }
 
@@ -145,7 +145,7 @@ th:hover {
 
 th,
 td {
-  padding: 8px 16px;
+  padding: 16px;
 }
 
 tbody tr:nth-of-type(even) {

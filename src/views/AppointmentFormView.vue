@@ -109,7 +109,7 @@ onBeforeMount(async () => {
 form {
   display: flex;
   flex-direction: column;
-  gap: var(--gap);
+  gap: calc(2 * var(--gap));
 }
 
 .button-group {

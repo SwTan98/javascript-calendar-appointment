@@ -92,6 +92,7 @@ watch(
 .input-group {
   flex-direction: column;
   display: flex;
+  gap: var(--gap);
 }
 
 .input-group > * {
@@ -102,7 +103,7 @@ watch(
 .input-group select,
 .input-group textarea {
   border: 1px solid var(--color-text);
-  padding: 4px;
+  padding: 8px;
   background-color: var(--color-background-soft);
   color: var(--color-text);
 }
