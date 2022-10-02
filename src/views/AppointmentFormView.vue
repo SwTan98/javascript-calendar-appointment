@@ -17,12 +17,15 @@ defineProps({
   },
 });
 
-const appointment = ref({
+const defaultShape = {
   date: "",
   dentist: "",
   equipment: "",
   note: "",
-});
+};
+
+const defaultValues = ref({ ...defaultShape });
+const appointment = ref({ ...defaultShape });
 
 const handleSubmit = (e) => {
   console.log(appointment.value);
@@ -30,7 +33,10 @@ const handleSubmit = (e) => {
   router.push("/");
 };
 
-const handleCancel = () => router.push(detailRoute);
+const handleCancel = () => {
+  reset();
+  router.push(detailRoute);
+};
 
 const handleDelete = () => {
   console.log(`Delete ${route.params.id}`);
@@ -39,18 +45,14 @@ const handleDelete = () => {
 const handleEdit = () => router.push(`${detailRoute}/edit`);
 
 const reset = () => {
-  appointment.value = {
-    date: "",
-    dentist: "",
-    equipment: "",
-    note: "",
-  };
+  appointment.value = { ...defaultValues.value };
 };
 
 onBeforeMount(async () => {
   if (route.params.id === undefined) return;
   const data = await getAppointment(route.params.id);
-  appointment.value = data;
+  defaultValues.value = { ...data };
+  appointment.value = { ...data };
 });
 </script>
 

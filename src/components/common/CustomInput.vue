@@ -1,5 +1,13 @@
 <script setup>
-defineProps({
+import { ref, watch } from "vue";
+import useViewport from "../utils/useViewport";
+import useDebounce from "../utils/useDebounce";
+import useThrottle from "../utils/useThrottle";
+
+const textareaRef = ref(null);
+const { width } = useViewport();
+
+const props = defineProps({
   id: {
     type: String,
     required: true,
@@ -24,6 +32,25 @@ defineProps({
 const emit = defineEmits(["update:modelValue"]);
 
 const handleUpdate = (e) => emit("update:modelValue", e.target.value);
+
+// auto-resize textarea
+watch(
+  [() => props.modelValue, () => width.value],
+  useThrottle(
+    // 100ms throttle to prevent excessive call when resizing
+    useDebounce(async () => {
+      // 10ms debounce to get accurate height on state change
+      if (!textareaRef.value) return;
+      textareaRef.value.style.setProperty("height", 0);
+      console.log(textareaRef.value.scrollHeight);
+      textareaRef.value.style.setProperty(
+        "height",
+        `${textareaRef.value.scrollHeight + 20}px`
+      );
+    }, 10),
+    100
+  )
+);
 </script>
 
 <template>
@@ -43,6 +70,7 @@ const handleUpdate = (e) => emit("update:modelValue", e.target.value);
     </select>
     <!-- conditionally render textarea -->
     <textarea
+      ref="textareaRef"
       v-else-if="type === 'textarea'"
       :id="id"
       :value="modelValue"
@@ -76,9 +104,13 @@ const handleUpdate = (e) => emit("update:modelValue", e.target.value);
 .input-group textarea {
   border: 1px solid var(--color-text);
   padding: 4px;
+  background-color: var(--color-background-soft);
+  color: var(--color-text);
 }
 
 textarea {
-  resize: vertical;
+  resize: none;
+  overflow-y: hidden;
+  min-height: 100px;
 }
 </style>
