@@ -5,6 +5,7 @@ import useToast from "../components/utils/useToast";
 import AppointmentApi from "../components/api/AppointmentApi";
 import AppointmentForm from "../components/AppointmentForm.vue";
 import CustomButton from "../components/common/CustomButton.vue";
+import form from "../components/config/form.json";
 
 const router = useRouter();
 const route = useRoute();
@@ -20,15 +21,8 @@ defineProps({
   },
 });
 
-const defaultShape = {
-  date: "",
-  dentist: "",
-  equipment: "",
-  note: "",
-};
-
-const defaultValues = ref({ ...defaultShape });
-const appointment = ref({ ...defaultShape });
+const defaultValues = ref({ ...form });
+const appointment = ref({ ...form });
 
 const handleSubmit = async () => {
   if (appointmentId) {

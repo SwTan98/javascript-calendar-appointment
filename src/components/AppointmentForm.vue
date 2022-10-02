@@ -1,13 +1,7 @@
 <script setup>
+import data from "./config/equipments.json";
 import CustomInput from "./common/CustomInput.vue";
-const dentists = ["", "Dentist 1", "Dentist 2", "Dentist 3"];
-const equipments = [
-  "",
-  "Compressor",
-  "Suction Machine",
-  "Scanner",
-  "Hygiene Equipment",
-];
+const equipments = ["", ...data];
 defineProps({
   date: {
     type: String,
@@ -53,8 +47,7 @@ const handleInput = (e) => {
   <CustomInput
     label="Dentist"
     id="input-dentist"
-    type="select"
-    :options="dentists"
+    type="text"
     :modelValue="dentist"
     @input="handleInput"
     v-bind="$attrs"

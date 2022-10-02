@@ -22,7 +22,7 @@ onBeforeMount(async () => {
     </RouterLink>
     <span class="information" v-if="loading">Loading...</span>
     <AppointmentList v-else-if="appointments.length" :value="appointments" />
-    <span class="information" v-else> No appointments yet... </span>
+    <span class="information" v-else> No appointments yet...</span>
   </div>
 </template>
 
