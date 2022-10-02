@@ -1,5 +1,7 @@
 # javascript-calendar-appointment
 
+## Description
+
 This is a dashboard for dental equipment technician(s) to manage their appointments for the customers (dentists).
 
 This project is built on Vue.js, with backend services running on AWS:
@@ -9,11 +11,20 @@ This project is built on Vue.js, with backend services running on AWS:
 - Lambda functions to access database
 - API Gateway to access lambda functions
 
+## Future improvements
+- Pagination / infinite scroll in appointments list
+- Loading skeletons
+- Better responsiveness
+- UI for signup / forgot password / change password
+- And so on...
+
 # Quick Start
 
 This project is [hosted on Vercel](https://javascript-calendar-appointment.vercel.app/) for easy access without installation.
 
 Please contact me to obtain application credentials.
+
+___
 
 ## Recommended IDE Setup
 
@@ -38,11 +49,11 @@ See [Vite Configuration Reference](https://vitejs.dev/config/).
     ```
 3. Update `.env` file with corresponding values
 
-    a. `VITE_CLIENT_ID`: Client ID for AWS Cognito
+    - `VITE_CLIENT_ID`: Client ID for AWS Cognito
 
-    b. `VITE_USER_POOL_ID`: Client ID for AWS Cognito
+    - `VITE_USER_POOL_ID`: Client ID for AWS Cognito
 
-    c. `VITE_API_GATEWAY`: API URL
+    - `VITE_API_GATEWAY`: API URL
 
 
 ### Compile and Hot-Reload for Development
