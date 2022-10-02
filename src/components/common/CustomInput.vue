@@ -102,6 +102,7 @@ watch(
 .input-group input,
 .input-group select,
 .input-group textarea {
+  width: 100%;
   border: 1px solid var(--color-text);
   padding: 8px;
   background-color: var(--color-background-soft);
