@@ -2,10 +2,7 @@
 import { onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import useToast from "../components/utils/useToast";
-import deleteAppointment from "../components/api/deleteAppointment";
-import getAppointment from "../components/api/getAppointment";
-import postAppointment from "../components/api/postAppointment";
-import putAppointment from "../components/api/putAppointment";
+import AppointmentApi from "../components/api/AppointmentApi";
 import AppointmentForm from "../components/AppointmentForm.vue";
 import CustomButton from "../components/common/CustomButton.vue";
 
@@ -36,11 +33,14 @@ const appointment = ref({ ...defaultShape });
 const handleSubmit = async () => {
   if (appointmentId) {
     // if appointment id exists, update appointment
-    const result = await putAppointment(appointmentId, appointment.value);
+    const result = await AppointmentApi.putAppointment(
+      appointmentId,
+      appointment.value
+    );
     toast.add(result);
   } else {
     // create new appointment
-    const result = await postAppointment(appointment.value);
+    const result = await AppointmentApi.postAppointment(appointment.value);
     toast.add(result);
   }
   router.push("/");
@@ -55,7 +55,7 @@ const handleDelete = async () => {
   if (!window.confirm("Are you sure you want to delete this appointment?")) {
     return;
   }
-  const result = await deleteAppointment(appointmentId);
+  const result = await AppointmentApi.deleteAppointment(appointmentId);
   toast.add(result);
   router.push("/");
 };
@@ -68,7 +68,7 @@ const reset = () => {
 
 onBeforeMount(async () => {
   if (appointmentId === undefined) return;
-  const data = await getAppointment(appointmentId);
+  const data = await AppointmentApi.getAppointment(appointmentId);
   defaultValues.value = { ...data };
   appointment.value = { ...data };
 });

@@ -2,7 +2,7 @@
 import { ref, onBeforeMount } from "vue";
 import { RouterLink } from "vue-router";
 import AppointmentList from "../components/AppointmentList.vue";
-import getAppointments from "../components/api/getAppointments";
+import { getAppointments } from "../components/api/AppointmentApi";
 
 const appointments = ref([]);
 const loading = ref(true);
