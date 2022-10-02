@@ -7,7 +7,7 @@ import { defineStore } from "pinia";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import Pool from "../auth/UserPool";
 
-export const useUserStore = defineStore("user", () => {
+const useUserStore = defineStore("user", () => {
   const isLoggedIn = ref(false);
   const error = ref(undefined);
 
@@ -119,3 +119,5 @@ export const useUserStore = defineStore("user", () => {
     authenticate,
   };
 });
+
+export default useUserStore;

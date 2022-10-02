@@ -1,6 +1,6 @@
 <script setup>
 import { RouterLink, RouterView, useRouter } from "vue-router";
-import { useUserStore } from "./components/utils/useUserStore";
+import useUserStore from "./components/utils/useUserStore";
 
 const user = useUserStore();
 const router = useRouter();

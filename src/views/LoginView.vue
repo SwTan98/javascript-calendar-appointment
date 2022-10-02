@@ -1,5 +1,5 @@
 <script setup>
-import { useUserStore } from "../components/utils/useUserStore";
+import useUserStore from "../components/utils/useUserStore";
 import CustomInput from "../components/common/CustomInput.vue";
 import { onMounted, ref } from "vue";
 import CustomButton from "../components/common/CustomButton.vue";
