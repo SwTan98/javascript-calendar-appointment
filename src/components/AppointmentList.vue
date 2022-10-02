@@ -2,6 +2,7 @@
 import { ref, watch, onBeforeMount } from "vue";
 import { RouterLink } from "vue-router";
 import dayjs from "dayjs";
+import getAppointments from "./api/getAppointments";
 
 const ColumnEnum = {
   DENTIST: "dentist",
@@ -10,23 +11,7 @@ const ColumnEnum = {
 const columns = [ColumnEnum.DENTIST, ColumnEnum.DATE];
 const sorter = ref(ColumnEnum.DATE);
 const ascending = ref(true);
-const appointments = ref([
-  {
-    id: "350df281-8849-4428-8829-b370f811119d",
-    dentist: "Dentist 1",
-    date: "2022-10-03 00:00:00",
-  },
-  {
-    id: "ed25d594-a810-45f8-8fd2-c59f3512ec39",
-    dentist: "Dentist 2",
-    date: "2022-10-02 00:00:00",
-  },
-  {
-    id: "65122577-b2bb-45ef-92f1-029518bb2e18",
-    dentist: "Dentist 3",
-    date: "2022-10-01 00:00:00",
-  },
-]);
+const appointments = ref([]);
 
 const updateSorter = (e) => {
   const id = e.target.id;
@@ -60,7 +45,11 @@ watch([sorter, ascending], ([sorter, ascending]) => {
   appointments.value.reverse();
 });
 
-onBeforeMount(() => sort(sorter.value));
+onBeforeMount(async () => {
+  const data = await getAppointments();
+  appointments.value = data;
+  sort(sorter.value);
+});
 </script>
 
 <template>

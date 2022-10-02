@@ -21,7 +21,7 @@ defineProps({
     type: String,
     default: "",
   },
-  notes: {
+  note: {
     type: String,
     default: "",
   },
@@ -30,7 +30,7 @@ const emit = defineEmits([
   "update:date",
   "update:dentist",
   "update:equipment",
-  "update:notes",
+  "update:note",
 ]);
 const handleInput = (e) => {
   const key = e.target.id.replace("input-", "");
@@ -68,10 +68,10 @@ const handleInput = (e) => {
     v-bind="$attrs"
   />
   <CustomInput
-    label="Notes"
-    id="input-notes"
+    label="Note"
+    id="input-note"
     type="textarea"
-    :value="notes"
+    :value="note"
     @input="handleInput"
     rows="5"
     v-bind="$attrs"

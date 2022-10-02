@@ -1,6 +1,7 @@
 <script setup>
-import { ref } from "vue";
+import { onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import getAppointment from "../components/api/getAppointment";
 import AppointmentForm from "../components/AppointmentForm.vue";
 import CustomButton from "../components/common/CustomButton.vue";
 
@@ -20,7 +21,7 @@ const appointment = ref({
   date: "",
   dentist: "",
   equipment: "",
-  notes: "",
+  note: "",
 });
 
 const handleSubmit = (e) => {
@@ -42,22 +43,15 @@ const reset = () => {
     date: "",
     dentist: "",
     equipment: "",
-    notes: "",
+    note: "",
   };
 };
 
-const mockFetch = () => {
-  appointment.value = {
-    date: "2022-02-02 02:02",
-    dentist: "Dentist 1",
-    equipment: "Compressor",
-    notes: "Lorem Ipsum",
-  };
-};
-
-if (route.params.id) {
-  mockFetch();
-}
+onBeforeMount(async () => {
+  if (route.params.id === undefined) return;
+  const data = await getAppointment(route.params.id);
+  appointment.value = data;
+});
 </script>
 
 <template>
@@ -66,7 +60,7 @@ if (route.params.id) {
       v-model:date="appointment.date"
       v-model:dentist="appointment.dentist"
       v-model:equipment="appointment.equipment"
-      v-model:notes="appointment.notes"
+      v-model:note="appointment.note"
       :disabled="mode === 'read'"
     />
     <div v-if="mode === 'read'" class="button-group">
