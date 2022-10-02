@@ -1,7 +1,7 @@
 <script setup>
 import useUserStore from "../components/utils/useUserStore";
 import CustomInput from "../components/common/CustomInput.vue";
-import { onMounted, ref } from "vue";
+import { ref } from "vue";
 import CustomButton from "../components/common/CustomButton.vue";
 import { useRouter } from "vue-router";
 
@@ -19,13 +19,6 @@ const handleSubmit = async () => {
     error.value = e.message;
   }
 };
-
-onMounted(async () => {
-  const isLoggedIn = await user.checkIsLoggedIn();
-  if (isLoggedIn) {
-    router.replace("/");
-  }
-});
 </script>
 
 <template>

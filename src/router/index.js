@@ -3,6 +3,9 @@ import HomeView from "../views/HomeView.vue";
 import AppointmentFormView from "../views/AppointmentFormView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import useUserStore from "../components/utils/useUserStore";
+import { ref } from "vue";
+
+const firstLoad = ref(true);
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -48,11 +51,21 @@ const router = createRouter({
   ],
 });
 
-router.beforeEach((to) => {
+router.beforeEach(async (to) => {
   const user = useUserStore();
+
+  // fetch user on first load
+  if (firstLoad.value) {
+    await user.checkIsLoggedIn();
+    firstLoad.value = false;
+  }
+
+  // redirect to login
   if (!user.isLoggedIn && !to.meta.publicAccess) {
     return "/login";
   }
+
+  // redirect to main page
   if (user.isLoggedIn && to.path === "/login") {
     return "/";
   }

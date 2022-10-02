@@ -2,7 +2,7 @@
  * auth functions referred from aws lab training
  */
 
-import { onBeforeMount, ref } from "vue";
+import { ref } from "vue";
 import { defineStore } from "pinia";
 import { CognitoUser, AuthenticationDetails } from "amazon-cognito-identity-js";
 import Pool from "../auth/UserPool";
@@ -106,9 +106,6 @@ const useUserStore = defineStore("user", () => {
     setIsLoggedIn(currentLoggedIn);
     return currentLoggedIn;
   };
-
-  // fetch user detail on first load
-  onBeforeMount(checkIsLoggedIn);
 
   return {
     isLoggedIn,
