@@ -1,9 +1,9 @@
 <script setup>
+import { ref } from "vue";
+import { useRouter } from "vue-router";
 import useUserStore from "../components/utils/useUserStore";
 import CustomInput from "../components/common/CustomInput.vue";
-import { ref } from "vue";
 import CustomButton from "../components/common/CustomButton.vue";
-import { useRouter } from "vue-router";
 
 const user = useUserStore();
 const router = useRouter();
@@ -24,6 +24,7 @@ const handleSubmit = async () => {
 <template>
   <div class="container">
     <form @submit.prevent="handleSubmit" class="wrapper">
+      <h1>Login</h1>
       <CustomInput
         id="login-email"
         class="login-input"
@@ -48,16 +49,18 @@ const handleSubmit = async () => {
 <style scoped>
 .container {
   display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  height: calc(100vh - 56px - 2rem);
+  gap: var(--gap);
+  height: calc(100vh - 2rem);
+  margin: auto;
 }
 
 .wrapper {
   display: flex;
   align-items: center;
   padding: 30px 60px;
-  margin: auto;
   width: 100%;
   min-width: 250px;
   max-width: 400px;

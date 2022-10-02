@@ -1,30 +1,37 @@
 <script setup>
-import { RouterLink, RouterView, useRouter } from "vue-router";
+import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
 import useUserStore from "./components/utils/useUserStore";
 import CustomToast from "./components/common/CustomToast.vue";
+import { computed } from "vue";
 
 const user = useUserStore();
+const route = useRoute();
 const router = useRouter();
 
 const handleLogout = () => {
   user.handleLogout();
   router.replace("/login");
 };
+
+const isLoginPage = computed(() => route.name === "Login");
 </script>
 
 <template>
-  <header>
+  <header v-if="!isLoginPage">
     <nav>
       <RouterLink class="white" to="/"
         ><span class="material-icons">home</span></RouterLink
       >
       <a class="white" href="" @click.prevent="handleLogout">
-        <span class="material-icons"> account_circle </span>
+        <span class="material-icons">logout</span>
       </a>
     </nav>
   </header>
 
   <main>
+    <h1 class="route-name" v-if="!isLoginPage">
+      {{ route.name }}
+    </h1>
     <RouterView />
   </main>
   <CustomToast />
@@ -64,5 +71,9 @@ nav a span {
 
 main {
   padding: 1rem;
+}
+
+h1.route-name {
+  margin-bottom: 1rem;
 }
 </style>

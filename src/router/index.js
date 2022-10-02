@@ -1,5 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
-import HomeView from "../views/HomeView.vue";
+import AppointmentListView from "../views/AppointmentListView.vue";
 import AppointmentFormView from "../views/AppointmentFormView.vue";
 import NotFoundView from "../views/NotFoundView.vue";
 import useUserStore from "../components/utils/useUserStore";
@@ -28,8 +28,8 @@ const router = createRouter({
     },
     {
       path: "/",
-      name: "Home",
-      component: HomeView,
+      name: "Appointment List",
+      component: AppointmentListView,
     },
     {
       path: "/new",
@@ -38,7 +38,7 @@ const router = createRouter({
     },
     {
       path: "/appointment/:id",
-      name: "Detail Appointment",
+      name: "Appointment Details",
       component: AppointmentFormView,
       props: { mode: "read" },
     },
