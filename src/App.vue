@@ -13,11 +13,12 @@ const handleLogout = () => {
   router.replace("/login");
 };
 
-const isLoginPage = computed(() => route.name === "Login");
+const showName = computed(() => !route.meta.hideName);
+const showNavbar = computed(() => !route.meta.hideNavBar);
 </script>
 
 <template>
-  <header v-if="!isLoginPage">
+  <header v-if="showNavbar">
     <nav>
       <RouterLink class="white" to="/"
         ><span class="material-icons">home</span></RouterLink
@@ -29,7 +30,7 @@ const isLoginPage = computed(() => route.name === "Login");
   </header>
 
   <main>
-    <h1 class="route-name" v-if="!isLoginPage">
+    <h1 class="route-name" v-if="showName">
       {{ route.name }}
     </h1>
     <RouterView />

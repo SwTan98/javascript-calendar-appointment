@@ -16,6 +16,7 @@ const router = createRouter({
       component: NotFoundView,
       meta: {
         publicAccess: true,
+        hideName: true,
       },
     },
     {
@@ -24,6 +25,8 @@ const router = createRouter({
       component: () => import("../views/LoginView.vue"),
       meta: {
         publicAccess: true,
+        hideName: true,
+        hideNavBar: true,
       },
     },
     {
