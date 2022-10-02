@@ -24,7 +24,7 @@ toast.$subscribe(() => {
 
 <style scoped>
 div.toast {
-  position: absolute;
+  position: fixed;
   bottom: 0;
   right: 0;
   background-color: var(--primary);
