@@ -1,11 +1,18 @@
 <script setup>
+import { ref } from "vue";
 import useToast from "../utils/useToast";
 
+const className = ref("toast");
+
 const toast = useToast();
+
+toast.$subscribe(() => {
+  className.value = toast.show ? "toast toast-show" : "toast";
+});
 </script>
 
 <template>
-  <div v-if="toast.message" class="toast">
+  <div :class="className">
     <span>
       {{ toast.message }}
     </span>
@@ -28,6 +35,12 @@ div.toast {
   display: flex;
   align-items: center;
   gap: var(--gap);
+  opacity: 0;
+  transition: 300ms opacity ease-in-out;
+}
+
+div.toast.toast-show {
+  opacity: 1;
 }
 
 div.toast > span {
