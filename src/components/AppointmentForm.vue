@@ -48,6 +48,7 @@ const handleInput = (e) => {
     @input="handleInput"
     step="60"
     v-bind="$attrs"
+    required
   />
   <CustomInput
     label="Dentist"
@@ -57,6 +58,7 @@ const handleInput = (e) => {
     :modelValue="dentist"
     @input="handleInput"
     v-bind="$attrs"
+    required
   />
   <CustomInput
     label="Equipment"
@@ -66,6 +68,7 @@ const handleInput = (e) => {
     :modelValue="equipment"
     @input="handleInput"
     v-bind="$attrs"
+    required
   />
   <CustomInput
     label="Note"
