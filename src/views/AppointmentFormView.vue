@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import useToast from "../components/utils/useToast";
 import deleteAppointment from "../components/api/deleteAppointment";
 import getAppointment from "../components/api/getAppointment";
 import postAppointment from "../components/api/postAppointment";
@@ -10,6 +11,7 @@ import CustomButton from "../components/common/CustomButton.vue";
 
 const router = useRouter();
 const route = useRoute();
+const toast = useToast();
 
 const appointmentId = route.params.id;
 const detailRoute = `/appointment/${appointmentId}`;
@@ -35,11 +37,11 @@ const handleSubmit = async () => {
   if (appointmentId) {
     // if appointment id exists, update appointment
     const result = await putAppointment(appointmentId, appointment.value);
-    console.log(result);
+    toast.add(result);
   } else {
     // create new appointment
     const result = await postAppointment(appointment.value);
-    console.log(result);
+    toast.add(result);
   }
   router.push("/");
 };
@@ -54,7 +56,7 @@ const handleDelete = async () => {
     return;
   }
   const result = await deleteAppointment(appointmentId);
-  console.log(result);
+  toast.add(result);
   router.push("/");
 };
 

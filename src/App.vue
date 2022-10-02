@@ -1,6 +1,7 @@
 <script setup>
 import { RouterLink, RouterView, useRouter } from "vue-router";
 import useUserStore from "./components/utils/useUserStore";
+import CustomToast from "./components/common/CustomToast.vue";
 
 const user = useUserStore();
 const router = useRouter();
@@ -26,6 +27,7 @@ const handleLogout = () => {
   <main>
     <RouterView />
   </main>
+  <CustomToast />
 </template>
 
 <style scoped>

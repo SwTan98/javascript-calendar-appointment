@@ -42,7 +42,6 @@ watch(
       // 10ms debounce to get accurate height on state change
       if (!textareaRef.value) return;
       textareaRef.value.style.setProperty("height", 0);
-      console.log(textareaRef.value.scrollHeight);
       textareaRef.value.style.setProperty(
         "height",
         `${textareaRef.value.scrollHeight + 20}px`
