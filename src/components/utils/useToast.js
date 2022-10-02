@@ -4,10 +4,14 @@ import { defineStore } from "pinia";
 const useToast = defineStore("toast", () => {
   const message = ref("");
   const show = ref(false);
+  const autoTimeoutID = ref("");
 
   // add message, then show toast
   const add = async (msg) => {
     message.value = msg;
+    if (autoTimeoutID.value) {
+      clearTimeout(autoTimeoutID.value);
+    }
     setTimeout(() => {
       show.value = true;
       clearAfterTimeout();
@@ -20,7 +24,9 @@ const useToast = defineStore("toast", () => {
     setTimeout(() => (message.value = ""), 500);
   };
 
-  const clearAfterTimeout = () => setTimeout(clear, 10000);
+  const clearAfterTimeout = () => {
+    autoTimeoutID.value = setTimeout(clear, 10000);
+  };
 
   return {
     message,
