@@ -2,13 +2,16 @@
 import { onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
 import getAppointment from "../components/api/getAppointment";
+import postAppointment from "../components/api/postAppointment";
+import putAppointment from "../components/api/putAppointment";
 import AppointmentForm from "../components/AppointmentForm.vue";
 import CustomButton from "../components/common/CustomButton.vue";
 
 const router = useRouter();
 const route = useRoute();
 
-const detailRoute = `/appointment/${route.params.id}`;
+const appointmentId = route.params.id;
+const detailRoute = `/appointment/${appointmentId}`;
 
 defineProps({
   mode: {
@@ -27,9 +30,16 @@ const defaultShape = {
 const defaultValues = ref({ ...defaultShape });
 const appointment = ref({ ...defaultShape });
 
-const handleSubmit = (e) => {
-  console.log(appointment.value);
-  e.preventDefault();
+const handleSubmit = async () => {
+  if (appointmentId) {
+    // if appointment id exists, update appointment
+    const result = await putAppointment(appointmentId, appointment.value);
+    console.log(result);
+  } else {
+    // create new appointment
+    const result = await postAppointment(appointment.value);
+    console.log(result);
+  }
   router.push("/");
 };
 
@@ -39,7 +49,7 @@ const handleCancel = () => {
 };
 
 const handleDelete = () => {
-  console.log(`Delete ${route.params.id}`);
+  console.log(`Delete ${appointmentId}`);
 };
 
 const handleEdit = () => router.push(`${detailRoute}/edit`);
@@ -49,15 +59,15 @@ const reset = () => {
 };
 
 onBeforeMount(async () => {
-  if (route.params.id === undefined) return;
-  const data = await getAppointment(route.params.id);
+  if (appointmentId === undefined) return;
+  const data = await getAppointment(appointmentId);
   defaultValues.value = { ...data };
   appointment.value = { ...data };
 });
 </script>
 
 <template>
-  <form @submit="handleSubmit">
+  <form @submit.prevent="handleSubmit">
     <AppointmentForm
       v-model:date="appointment.date"
       v-model:dentist="appointment.dentist"
