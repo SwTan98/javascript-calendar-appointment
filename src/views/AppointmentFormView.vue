@@ -1,6 +1,7 @@
 <script setup>
 import { onBeforeMount, ref } from "vue";
 import { useRoute, useRouter } from "vue-router";
+import deleteAppointment from "../components/api/deleteAppointment";
 import getAppointment from "../components/api/getAppointment";
 import postAppointment from "../components/api/postAppointment";
 import putAppointment from "../components/api/putAppointment";
@@ -48,8 +49,13 @@ const handleCancel = () => {
   router.push(detailRoute);
 };
 
-const handleDelete = () => {
-  console.log(`Delete ${appointmentId}`);
+const handleDelete = async () => {
+  if (!window.confirm("Are you sure you want to delete this appointment?")) {
+    return;
+  }
+  const result = await deleteAppointment(appointmentId);
+  console.log(result);
+  router.push("/");
 };
 
 const handleEdit = () => router.push(`${detailRoute}/edit`);
