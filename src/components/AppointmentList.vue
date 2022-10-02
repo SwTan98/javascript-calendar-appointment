@@ -1,18 +1,27 @@
 <script setup>
-import { ref, watch, onBeforeMount } from "vue";
+import { ref, watch, onMounted } from "vue";
 import { RouterLink } from "vue-router";
 import dayjs from "dayjs";
-import getAppointments from "./api/getAppointments";
+
+const appointments = ref([]);
+
+const props = defineProps({
+  value: {
+    type: Array,
+    default: () => [],
+  },
+});
 
 const ColumnEnum = {
   DENTIST: "dentist",
   DATE: "date",
 };
 const columns = [ColumnEnum.DENTIST, ColumnEnum.DATE];
+
 const sorter = ref(ColumnEnum.DATE);
 const ascending = ref(true);
-const appointments = ref([]);
 
+// update sorting column, if column is the same, change direction
 const updateSorter = (e) => {
   const id = e.target.id;
   if (id === sorter.value) {
@@ -23,10 +32,13 @@ const updateSorter = (e) => {
   ascending.value = true;
 };
 
+// simple table sort function
 const sort = (sorter) => {
+  // date comparison
   if (sorter === ColumnEnum.DATE) {
     return appointments.value.sort((a, b) => dayjs(a.date) - dayjs(b.date));
   }
+  // general comparison
   return appointments.value.sort((a, b) => {
     if (a[sorter] < b[sorter]) {
       return -1;
@@ -38,97 +50,57 @@ const sort = (sorter) => {
   });
 };
 
-watch([sorter, ascending], ([sorter, ascending]) => {
+watch([sorter, ascending, appointments], ([sorter, ascending]) => {
   const sorted = sort(sorter);
   appointments.value = sorted;
   if (ascending) return;
   appointments.value.reverse();
 });
 
-onBeforeMount(async () => {
-  const data = await getAppointments();
-  appointments.value = data;
-  sort(sorter.value);
+onMounted(() => {
+  appointments.value = [...props.value];
 });
 </script>
 
 <template>
-  <div class="container">
-    <RouterLink class="button" to="/new">
-      <span class="material-icons"> add </span>
-      <span class="button-description">Create New Appointment</span>
-    </RouterLink>
-    <table>
-      <thead>
-        <tr @click="updateSorter">
-          <th
-            v-for="column in columns"
-            :class="[
-              'sortable',
-              {
-                ascending: sorter === column && ascending,
-                descending: sorter === column && !ascending,
-              },
-            ]"
-            role="button"
-            :id="column"
-            :key="column"
-          >
-            {{ column }}
-          </th>
-        </tr>
-      </thead>
-      <tbody>
-        <tr
-          v-for="appointment in appointments"
-          :key="appointment.id"
-          :id="appointment.id"
+  <table>
+    <thead>
+      <tr @click="updateSorter">
+        <th
+          v-for="column in columns"
+          :class="[
+            'sortable',
+            {
+              ascending: sorter === column && ascending,
+              descending: sorter === column && !ascending,
+            },
+          ]"
+          role="button"
+          :id="column"
+          :key="column"
         >
-          <td>
-            <RouterLink :to="`/appointment/${appointment.id}`">{{
-              appointment.dentist
-            }}</RouterLink>
-          </td>
-          <td>{{ appointment.date }}</td>
-        </tr>
-      </tbody>
-    </table>
-  </div>
+          {{ column }}
+        </th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr
+        v-for="appointment in appointments"
+        :key="appointment.id"
+        :id="appointment.id"
+      >
+        <td>
+          <RouterLink :to="`/appointment/${appointment.id}`">{{
+            appointment.dentist
+          }}</RouterLink>
+        </td>
+        <td>{{ appointment.date }}</td>
+      </tr>
+    </tbody>
+  </table>
 </template>
 
 <style scoped>
-.container {
-  display: flex;
-  flex-direction: column;
-  gap: var(--gap);
-}
-a.button {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: var(--gap);
-  padding: 8px 16px;
-  background: none;
-  border: none;
-  border-radius: var(--border-radius);
-  background-color: var(--primary);
-  color: white;
-  font-size: 16px;
-  cursor: pointer;
-}
-
-.button-description {
-  display: none;
-  font-size: 16px;
-  font-weight: 500;
-}
-
-@media (min-width: 568px) {
-  .button-description {
-    display: block;
-  }
-}
-
 table {
   text-align: left;
   border-collapse: collapse;
