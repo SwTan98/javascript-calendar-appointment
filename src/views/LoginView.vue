@@ -26,6 +26,7 @@ const handleSubmit = async () => {
     <form @submit.prevent="handleSubmit" class="wrapper">
       <h1>Login</h1>
       <CustomInput
+        type="email"
         id="login-email"
         class="login-input"
         label="Email"
