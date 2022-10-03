@@ -6,6 +6,7 @@ import AppointmentApi from "../components/api/AppointmentApi";
 import AppointmentForm from "../components/AppointmentForm.vue";
 import CustomButton from "../components/common/CustomButton.vue";
 import form from "../components/config/form.json";
+import useDialog from "../components/utils/useDialog";
 
 const router = useRouter();
 const route = useRoute();
@@ -46,9 +47,14 @@ const handleCancel = () => {
 };
 
 const handleDelete = async () => {
-  if (!window.confirm("Are you sure you want to delete this appointment?")) {
-    return;
-  }
+  const dialog = useDialog();
+  const confirm = await dialog.confirm(
+    "Are you sure you want to delete this appointment?",
+    {
+      confirm: "danger",
+    }
+  );
+  if (!confirm) return;
   const result = await AppointmentApi.deleteAppointment(appointmentId);
   toast.add(result);
   router.push("/");

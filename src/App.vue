@@ -4,12 +4,16 @@ import useUserStore from "./components/utils/useUserStore";
 import CustomToast from "./components/common/CustomToast.vue";
 import { computed } from "vue";
 import CustomDialog from "./components/common/CustomDialog.vue";
+import useDialog from "./components/utils/useDialog";
 
 const user = useUserStore();
 const route = useRoute();
 const router = useRouter();
 
-const handleLogout = () => {
+const handleLogout = async () => {
+  const dialog = useDialog();
+  const confirm = await dialog.confirm("Are you sure you want to log out?");
+  if (!confirm) return;
   user.handleLogout();
   router.replace("/login");
 };

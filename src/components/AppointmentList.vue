@@ -105,7 +105,7 @@ table {
   text-align: left;
   border-collapse: collapse;
   min-width: 250px;
-  box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 0 20px var(--color-border);
 }
 
 thead tr {
