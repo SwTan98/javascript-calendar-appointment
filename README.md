@@ -16,6 +16,9 @@ This project is built on Vue.js, with backend services running on AWS:
 - Loading skeletons
 - Better responsiveness
 - UI for signup / forgot password / change password
+- Better toast notification (color-coded, customizable duration)
+- Better validation (FE + BE)
+- More robust data handling in backend
 - And so on...
 
 # Quick Start
