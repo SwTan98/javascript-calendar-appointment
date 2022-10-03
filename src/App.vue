@@ -3,6 +3,7 @@ import { RouterLink, RouterView, useRoute, useRouter } from "vue-router";
 import useUserStore from "./components/utils/useUserStore";
 import CustomToast from "./components/common/CustomToast.vue";
 import { computed } from "vue";
+import CustomDialog from "./components/common/CustomDialog.vue";
 
 const user = useUserStore();
 const route = useRoute();
@@ -36,6 +37,7 @@ const showNavbar = computed(() => !route.meta.hideNavBar);
     <RouterView />
   </main>
   <CustomToast />
+  <CustomDialog />
 </template>
 
 <style scoped>
